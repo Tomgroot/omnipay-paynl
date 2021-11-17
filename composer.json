@@ -5,7 +5,8 @@
     "type": "library",
     "require": {
         "omnipay/common": "~3",
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-openssl": "*"
     },
     "require-dev": {
         "omnipay/tests": "~3",

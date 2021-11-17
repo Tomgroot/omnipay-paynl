@@ -3,6 +3,7 @@
 namespace Omnipay\Paynl;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Paynl\Message\Request\AuthorizeRequest;
 use Omnipay\Paynl\Message\Request\CaptureRequest;
 use Omnipay\Paynl\Message\Request\CompletePurchaseRequest;
 use Omnipay\Paynl\Message\Request\FetchIssuersRequest;
@@ -123,6 +124,15 @@ class Gateway extends AbstractGateway
     public function purchase(array $options = array())
     {
         return $this->createRequest(PurchaseRequest::class, $options);
+    }
+
+    /**
+     * @param array $options
+     * @return \Omnipay\Common\Message\AbstractRequest|AuthorizeRequest
+     */
+    public function authorize(array $options = array())
+    {
+        return $this->createRequest(AuthorizeRequest::class, $options);
     }
 
     /**

@@ -10,7 +10,7 @@ class AuthorizeResponse extends AbstractPaynlResponse
      */
     public function isSuccessful()
     {
-        return isset($this->data['request']['result']) && $this->data['request']['result'];
+        return isset($this->data['request']['result']) && $this->data['request']['result'] == 1;
     }
 
     /**

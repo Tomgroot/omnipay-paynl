@@ -92,7 +92,7 @@ class AuthorizeRequest extends AbstractPaynlRequest
                 )
             ];
 
-            //TODO test when not in CSE mode
+            //TODO not tested when we do not use CSE
             if (empty($this->getCse())) {
                 $data['payment'] = [
                     'method'    => 'card',
@@ -180,7 +180,7 @@ class AuthorizeRequest extends AbstractPaynlRequest
         $response = $this->sendRequest('getEncryptionKeys');
         if (!isset($response['keys'][0]) || !isset($response['keys'][0]['identifier'])
             || !isset($response['keys'][0]['public_key']))
-            return $this->setParameter('cseMode', false);
+            return $this;
         $publicKey = $response['keys'][0]['public_key'];
         $identifier = $response['keys'][0]['identifier'];
 
@@ -192,16 +192,14 @@ class AuthorizeRequest extends AbstractPaynlRequest
             "valid_thru_year"   => $card->getExpiryYear()
         ];
         $jsonData = json_encode($data);
+        $hex = base64_decode($publicKey);
+        openssl_public_encrypt($jsonData, $encrypted, $hex);
+        $encrypted = base64_encode($encrypted);
 
-        $cipherAlgo = "AES-256-CBC";
-        $encrypted = openssl_encrypt($jsonData, $cipherAlgo, $publicKey);
-        $this->setParameter('cse', [
+        return $this->setParameter('cse', [
             'identifier'    => $identifier,
             'data'          => $encrypted
         ]);
-
-
-        return $this->setParameter('cseMode', true);
     }
 
     /**

@@ -153,7 +153,7 @@ class AuthorizeRequest extends AbstractPaynlRequest
                 $data['stats'] = array_filter($statsData, function($k) use ($allowableParams) {
                     return in_array($k, $allowableParams);
                 }, ARRAY_FILTER_USE_KEY);
-              $data['stats']['object'] = 'omnipay';
+                $data['stats']['object'] = 'omnipay';
             }
         }
 
@@ -171,35 +171,13 @@ class AuthorizeRequest extends AbstractPaynlRequest
     }
 
     /**
-     * Gets the encryption keys from the payment api and encrypts the credit card data
-     * @param $value CreditCard
+     * Sets the CSE array
+     * @param $value array
      * @return AuthorizeRequest
      */
-    public function setCse($card)
+    public function setCse($value)
     {
-        $response = $this->sendRequest('getEncryptionKeys');
-        if (!isset($response['keys'][0]) || !isset($response['keys'][0]['identifier'])
-            || !isset($response['keys'][0]['public_key']))
-            return $this;
-        $publicKey = $response['keys'][0]['public_key'];
-        $identifier = $response['keys'][0]['identifier'];
-
-        $data = [
-            "cardholder"        => $card->getName(),
-            "cardnumber"        => $card->getNumber(),
-            "cardcvc"           => $card->getCvv(),
-            "valid_thru_month"  => $card->getExpiryMonth(),
-            "valid_thru_year"   => $card->getExpiryYear()
-        ];
-        $jsonData = json_encode($data);
-        $hex = base64_decode($publicKey);
-        openssl_public_encrypt($jsonData, $encrypted, $hex);
-        $encrypted = base64_encode($encrypted);
-
-        return $this->setParameter('cse', [
-            'identifier'    => $identifier,
-            'data'          => $encrypted
-        ]);
+        return $this->setParameter('cse', $value);
     }
 
     /**

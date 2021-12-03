@@ -18,7 +18,7 @@ class AuthorizeResponse extends AbstractPaynlResponse
      */
     public function getTransactionReference()
     {
-        return isset($this->data['transaction']['transactionId']) ? $this->data['paymentDetails']['transactionId'] : null;
+        return isset($this->data['transaction']['transactionId']) ? $this->data['transaction']['transactionId'] : null;
     }
 
     /**

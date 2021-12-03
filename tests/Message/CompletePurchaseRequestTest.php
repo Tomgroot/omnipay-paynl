@@ -71,7 +71,7 @@ class CompletePurchaseRequestTest extends TestCase
         $this->request->getData();
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = new CompletePurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
 

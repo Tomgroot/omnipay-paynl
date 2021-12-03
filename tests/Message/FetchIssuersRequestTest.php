@@ -25,13 +25,13 @@ class FetchIssuersRequestTest extends TestCase
         $this->assertTrue($response->isSuccessful());
 
         $issuers = $response->getIssuers();
-        $this->assertInternalType('array', $issuers);
+        $this->assertIsArray($issuers);
         $this->assertNotEmpty($issuers);
 
         $this->assertContainsOnlyInstancesOf(Issuer::class, $issuers);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = new FetchIssuersRequest($this->getHttpClient(), $this->getHttpRequest());
     }

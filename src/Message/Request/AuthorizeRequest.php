@@ -92,7 +92,6 @@ class AuthorizeRequest extends AbstractPaynlRequest
                 )
             ];
 
-            //TODO not tested when we do not use CSE
             if (empty($this->getCse())) {
                 $data['payment'] = [
                     'method'    => 'card',

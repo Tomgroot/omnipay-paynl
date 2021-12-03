@@ -1,0 +1,68 @@
+HTTP/1.1 200 OK
+Date: Fri, 03 Dec 2021 16:20:11 GMT;
+Server: Apache;
+Last-Modified: Tue, 09 Oct 2018 16:21:13 GMT;
+Cache-Control: post-check=0, pre-check=0;
+Pragma: no-cache;
+X-Frame-Options: SAMEORIGIN;
+X-XSS-Protection: 1; mode=block;
+X-Content-Type-Options: nosniff;
+Connection: close;
+Content-Type: application/json;
+
+{
+    "request": {
+        "result": "0",
+        "errorId": "PAY-3206",
+        "errorTag": "invalidCardNumber",
+        "errorMessage": "The entered card number is incorrect. Please try again and check your entry carefully."
+    },
+    "payment": {
+        "bankCode": "15",
+        "bankMessage": "Invalid issuer",
+        "approvalCode": "",
+        "schemeTransactionId": "",
+        "cvcCheck": "",
+        "threeDs": "",
+        "avsResult": ""
+    },
+    "transaction": {
+        "transactionId": "12345678",
+        "orderId": "123456789",
+        "paymentProfileId": "123",
+        "state": "20",
+        "stateName": "PENDING",
+        "amount": {
+            "value": "100",
+            "currency": "EUR"
+        },
+        "created": "1638549161",
+        "identifierName": "B.E. Janssen",
+        "identifierPublic": "411111******1111",
+        "identifierHash": "123456789",
+        "startIpAddress": "10.0.0.1",
+        "completedIpAddress": "131.155.246.8",
+        "orderNumber": "173469",
+        "amountOriginal": {
+            "value": "100",
+            "currency": "EUR"
+        },
+        "amountPaidOriginal": {
+            "value": "0",
+            "currency": "EUR"
+        },
+        "amountPaid": {
+            "value": "0",
+            "currency": "EUR"
+        },
+        "amountRefundOriginal": {
+            "value": "0",
+            "currency": "EUR"
+        },
+        "amountRefund": {
+            "value": "0",
+            "currency": "EUR"
+        },
+        "entranceCode": "1234567890"
+    }
+}

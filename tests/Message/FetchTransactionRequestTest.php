@@ -44,7 +44,7 @@ class FetchTransactionRequestTest extends TestCase
         $this->assertEquals('USD', $response->getCurrency(), 'Amount should be 1 USD');
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = new FetchTransactionRequest($this->getHttpClient(), $this->getHttpRequest());
 

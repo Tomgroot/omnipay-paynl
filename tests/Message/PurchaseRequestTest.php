@@ -26,12 +26,14 @@ class PurchaseRequestTest extends TestCase
         $response = $this->request->send();
         $this->assertInstanceOf(PurchaseResponse::class, $response);
 
+        var_dump($response);
+
         $this->assertFalse($response->isSuccessful());
         $this->assertTrue($response->isRedirect());
 
-        $this->assertInternalType('string', $response->getTransactionReference());
-        $this->assertInternalType('string', $response->getRedirectUrl());
-        $this->assertInternalType('string', $response->getAcceptCode());
+        $this->assertIsString($response->getTransactionReference());
+        $this->assertIsString($response->getRedirectUrl());
+        $this->assertIsString($response->getAcceptCode());
 
         $this->assertEquals('GET', $response->getRedirectMethod());
         $this->assertNull($response->getRedirectData());
@@ -273,7 +275,7 @@ class PurchaseRequestTest extends TestCase
 
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = new PurchaseRequest($this->getHttpClient(), $this->getHttpRequest());
 

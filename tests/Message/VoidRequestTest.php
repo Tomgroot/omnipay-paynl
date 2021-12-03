@@ -56,7 +56,7 @@ class VoidRequestTest extends TestCase
         $this->assertNotEmpty($response->getMessage());
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = new VoidRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize([

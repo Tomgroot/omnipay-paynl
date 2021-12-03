@@ -26,7 +26,7 @@ class FetchPaymentMethodsRequestTest extends TestCase
 
         $paymentMethods = $response->getPaymentMethods();
 
-        $this->assertInternalType('array', $paymentMethods);
+        $this->assertIsArray($paymentMethods);
         $this->assertNotEmpty($paymentMethods);
         $this->assertContainsOnlyInstancesOf(PaymentMethod::class, $paymentMethods);
     }
@@ -44,7 +44,7 @@ class FetchPaymentMethodsRequestTest extends TestCase
         $this->assertNull($response->getPaymentMethods());
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = new FetchPaymentMethodsRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize([

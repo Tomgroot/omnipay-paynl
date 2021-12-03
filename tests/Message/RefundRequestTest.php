@@ -28,7 +28,7 @@ class RefundRequestTest extends TestCase
         $this->assertEquals($transactionId, $response->getTransactionReference());
         $this->assertTrue($response->isSuccessful());
         $this->assertNotEmpty($response->getDescription());
-        $this->assertInternalType('integer', $response->getAmountInteger());
+        $this->assertIsInt($response->getAmountInteger());
     }
 
     public function testSendError()
@@ -76,7 +76,7 @@ class RefundRequestTest extends TestCase
         $this->assertEquals($description, $data['description']);
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = new RefundRequest($this->getHttpClient(), $this->getHttpRequest());
         $this->request->initialize([

@@ -108,7 +108,7 @@ class CaptureRequestTest extends TestCase
         $this->assertNotEmpty($response->getMessage());
     }
 
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->request = new CaptureRequest($this->getHttpClient(), $this->getHttpRequest());
 

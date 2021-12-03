@@ -1,30 +1,68 @@
 HTTP/1.1 200 OK
-Date: Wed, 26 Sep 2018 15:46:18 GMT;
+Date: Tue, 09 Oct 2018 16:21:13 GMT;
 Server: Apache;
 Expires: Mon, 26 Jul 1990 05:00:00 GMT;
-Last-Modified: Wed, 26 Sep 2018 15:46:18 GMT;
+Last-Modified: Tue, 09 Oct 2018 16:21:13 GMT;
 Cache-Control: post-check=0, pre-check=0;
 Pragma: no-cache;
 X-Frame-Options: SAMEORIGIN;
 X-XSS-Protection: 1; mode=block;
 X-Content-Type-Options: nosniff;
-Content-Length: 360;
 Connection: close;
 Content-Type: application/json;
 
 {
-    "request": {
-        "result": "1",
-        "errorId": "",
-        "errorMessage": ""
+  "request": {
+    "result": "1",
+    "errorId": "",
+    "errorMessage": ""
+  },
+  "paymentDetails": {
+    "transactionId": "EX-2275-5639-0960",
+    "orderId": "1663939079Xc8b48",
+    "paymentProfileId": "706",
+    "state": "20",
+    "stateName": "PENDING",
+    "amountOriginal": {
+      "value": "995",
+      "currency": "EUR",
     },
-    "endUser": {
-        "blacklist": "0"
+    "amount": {
+      "value": "995",
+      "currency": "EUR",
     },
-    "transaction": {
-        "transactionId": "996602917X97eedb",
-        "paymentURL": "https:\/\/www.pay.nl",
-        "popupAllowed": "0",
-        "paymentReference": "9000 0009 9660 2917"
-    }
+    "amountPaidOriginal": {
+      "value": "995",
+      "currency": "EUR",
+    },
+    "amountPaid": {
+      "value": "995",
+      "currency": "EUR",
+    },
+    "amountRefundOriginal": {
+      "value": "0",
+      "currency": "EUR",
+    },
+    "created": "1629908001",
+    "identifierName": "R. van der Werf",
+    "identifierPublic": "123456******4321",
+    "identifierHash": "00b6 ... 3e8",
+    "startIpAddress": "10.20.30.40",
+    "completedIpAddress": "10.20.30.40",
+    "reference": "210709461"
+    "payment": {
+      "bankCode": "0",
+      "bankMessage": "Insufficient funds/over credit limit (Cvv: M)",
+      "cvcCheck": "M",
+      "threeDs": "FALSE",
+      "approvalCode": "ZLJI2Q",
+      "schemeTransactionId": "",
+      "avsResult": "",
+    },
+    "tokenization": {
+      "id": "VY-1234-1234-1234",
+      "hash": "d04b98f48...16e7807340fa",
+      "expirationDate": "2512",
+      "label": "************2587",
+  }
 }

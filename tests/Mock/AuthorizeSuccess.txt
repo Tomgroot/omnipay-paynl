@@ -16,53 +16,52 @@ Content-Type: application/json;
         "errorId": "",
         "errorMessage": ""
     },
-    "paymentDetails": {
-        "transactionId": "EX-2275-5639-0960",
-        "orderId": "1663939079Xc8b48",
-        "paymentProfileId": "706",
-        "state": "20",
-        "stateName": "PENDING",
-        "amountOriginal": {
-            "value": "995",
+    "payment": {
+        "bankCode": "00",
+        "bankMessage": "",
+        "approvalCode": "",
+        "schemeTransactionId": "",
+        "cvcCheck": "",
+        "threeDs": "",
+        "avsResult": ""
+    },
+    "transaction": {
+        "transactionId": "12345678",
+        "orderId": "123456789",
+        "paymentProfileId": "123",
+        "state": "100",
+        "stateName": "PAID",
+        "amount": {
+            "value": "100",
             "currency": "EUR"
         },
-        "amount": {
-            "value": "995",
+        "created": "1638549161",
+        "identifierName": "B.E. Janssen",
+        "identifierPublic": "411111******1111",
+        "identifierHash": "123456789",
+        "startIpAddress": "10.0.0.1",
+        "completedIpAddress": "131.155.246.8",
+        "orderNumber": "173469",
+        "amountOriginal": {
+            "value": "100",
             "currency": "EUR"
         },
         "amountPaidOriginal": {
-            "value": "995",
+            "value": "0",
             "currency": "EUR"
         },
         "amountPaid": {
-            "value": "995",
+            "value": "100",
             "currency": "EUR"
         },
         "amountRefundOriginal": {
             "value": "0",
             "currency": "EUR"
         },
-        "created": "1629908001",
-        "identifierName": "R. van der Werf",
-        "identifierPublic": "123456******4321",
-        "identifierHash": "00b6 ... 3e8",
-        "startIpAddress": "10.20.30.40",
-        "completedIpAddress": "10.20.30.40",
-        "reference": "210709461",
-        "payment": {
-            "bankCode": "0",
-            "bankMessage": "Insufficient funds/over credit limit (Cvv: M)",
-            "cvcCheck": "M",
-            "threeDs": "FALSE",
-            "approvalCode": "ZLJI2Q",
-            "schemeTransactionId": "",
-            "avsResult": ""
+        "amountRefund": {
+            "value": "0",
+            "currency": "EUR"
         },
-        "tokenization": {
-            "id": "VY-1234-1234-1234",
-            "hash": "d04b98f48...16e7807340fa",
-            "expirationDate": "2512",
-            "label": "************2587"
-        }
+        "entranceCode": "1234567890"
     }
 }

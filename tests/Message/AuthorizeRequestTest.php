@@ -17,9 +17,7 @@ class AuthorizeRequestTest extends TestCase
 
     public function testSendSuccess()
     {
-        //Response according to https://docs.pay.nl/developers#card-payments
-        //but it is not valid JSON as brackets/commas are missing
-        //and does not have the same structure as the error response
+        //Response according to https://docs.pay.nl/developers#card-payments looks to be outdated
         $this->setMockHttpResponse('AuthorizeSuccess.txt');
 
         $this->request->setAmount(1);
@@ -32,8 +30,11 @@ class AuthorizeRequestTest extends TestCase
         $this->assertTrue($response->isSuccessful());
         $this->assertFalse($response->isRedirect());
 
-        //$this->assertIsString($response->getTransactionReference());
+        $this->assertIsString($response->getTransactionReference());
         $this->assertIsString($response->getCode());
+        $this->assertIsString($response->getTransactionOrderId());
+        $this->assertIsString($response->getTransactionEntranceCode());
+        $this->assertEquals($response->getNextAction(), "PAID");
 
         $this->assertEquals('GET', $response->getRedirectMethod());
     }
@@ -81,6 +82,24 @@ class AuthorizeRequestTest extends TestCase
         $this->assertEquals($objCard->getExpiryYear(), $requestCard['expire_year']);
         $this->assertEquals($objCard->getCvv(), $requestCard['csv']);
         $this->assertEquals($objCard->getName(), $requestCard['name']);
+    }
+
+    public function testTransactionOrderIdEntranceCode()
+    {
+
+        $this->request->setAmount(1);
+        $this->request->setClientIp('10.0.0.5');
+        $this->request->setReturnUrl('https://www.pay.nl');
+        $order_id = uniqid();
+        $entrance_code = uniqid();
+        $this->request->setOrderId($order_id);
+        $this->request->setEntranceCode($entrance_code);
+
+        $data = $this->request->getData();
+        $this->assertNotEmpty($data['transaction']);
+        $transaction = $data['transaction'];
+        $this->assertEquals($order_id, $transaction['orderId']);
+        $this->assertEquals($entrance_code, $transaction['entranceCode']);
     }
 
     public function testCsePayment()

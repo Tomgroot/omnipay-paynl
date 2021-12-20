@@ -14,8 +14,8 @@ abstract class AbstractPaynlRequest extends AbstractRequest
     /**
      * @var string
      */
-    private $baseUrl = 'https://rest-api.pay.nl';
-    private $version = '/v18/transaction/';
+    protected $baseUrl = 'https://rest-api.pay.nl';
+    protected $version = '/v18/transaction/';
 
     /**
      * @param string $endpoint

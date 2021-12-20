@@ -6,20 +6,20 @@ namespace Omnipay\Paynl\Message\Response;
 class AuthenticateResponse extends AuthorizeResponse
 {
     /**
+     * @return bool
+     */
+    public function isSuccessful()
+    {
+        return isset($this->data['request']['result']) && $this->data['request']['result'] == 1;
+    }
+
+    /**
      * Returns the next action needed for 3D secure authentication
      * @return mixed|null
      */
     public function getNextAction()
     {
         return isset($this->data['threeDs']['nextAction']) ? $this->data['threeDs']['nextAction'] : null;
-    }
-
-    /**
-     * @return mixed|null
-     */
-    public function getTransaction()
-    {
-        return isset($this->data['transaction']) ? $this->data['transaction'] : null;
     }
 
     /**

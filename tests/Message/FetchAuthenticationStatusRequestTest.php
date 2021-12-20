@@ -22,6 +22,7 @@ class FetchAuthenticationStatusRequestTest extends TestCase
         $this->request->setAmount(1);
         $this->request->setClientIp('10.0.0.5');
         $this->request->setReturnUrl('https://www.pay.nl');
+        $this->request->setTransactionId('12345678');
 
         $response = $this->request->send();
         $this->assertInstanceOf(FetchAuthenticationStatusResponse::class, $response);

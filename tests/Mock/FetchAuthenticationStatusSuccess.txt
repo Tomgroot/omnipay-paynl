@@ -1,0 +1,26 @@
+HTTP/1.1 200 OK
+Date: Wed, 26 Sep 2018 14:32:59 GMT;
+Server: Apache;
+Expires: Mon, 26 Jul 1990 05:00:00 GMT;
+Last-Modified: Wed, 26 Sep 2018 14:32:59 GMT;
+Cache-Control: post-check=0, pre-check=0;
+Pragma: no-cache;
+X-Frame-Options: SAMEORIGIN;
+X-XSS-Protection: 1; mode=block;
+X-Content-Type-Options: nosniff;
+Connection: close;
+Transfer-Encoding: chunked;
+Content-Type: application/json;
+
+{
+    "request": {
+        "result": "1",
+        "errorId": "",
+        "errorTag": "",
+        "errorMessage": ""
+    },
+    "threeDs": {
+        "transactionID": "12345678",
+        "transactionStatusCode": "20"
+    }
+}

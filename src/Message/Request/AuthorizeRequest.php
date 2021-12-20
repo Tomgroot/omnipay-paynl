@@ -25,7 +25,8 @@ class AuthorizeRequest extends AbstractPaynlRequest
     /**
      * @var string
      */
-    protected $baseUrl = 'https://payment.pay.nl/v1/Payment/';
+    protected $baseUrl = 'https://payment.pay.nl';
+    protected $version = '/v1/Payment/';
 
     /**
      * @return array
@@ -115,14 +116,8 @@ class AuthorizeRequest extends AbstractPaynlRequest
         if (!empty($this->getCse())) {
             $data['payment'] = [
                 'method'    => 'cse',
-                'cse'       => $this->getCse()
-            ];
-            if (!empty($this->getPayTdsTransactionId())) {
-                $data['payment']['auth'] = [
-                    'payTdsTransactionId'   => $this->getPayTdsTransactionId(),
-                    'payTdsAcquirerId'      => !empty($this->getPayTdsAcquirerId()) ? $this->getPayTdsAcquirerId() : ""
-                ];
-                $data['payment']['browser'] = [
+                'cse'       => $this->getCse(),
+                'browser'   => [
                     "javaEnabled"       => $this->getJavaEnabled(),
                     "javascriptEnabled" => $this->getJavaScriptEnabled(),
                     "language"          => $this->getLanguage(),
@@ -130,6 +125,13 @@ class AuthorizeRequest extends AbstractPaynlRequest
                     "screenHeight"      => $this->getScreenHeight(),
                     "screenWidth"       => $this->getScreenWidth(),
                     "tz"                => $this->getTz()
+                ],
+            ];
+
+            if (!empty($this->getPayTdsTransactionId())) {
+                $data['payment']['auth'] = [
+                    'payTdsTransactionId'   => $this->getPayTdsTransactionId(),
+                    'payTdsAcquirerId'      => !empty($this->getPayTdsAcquirerId()) ? $this->getPayTdsAcquirerId() : ""
                 ];
             }
         }

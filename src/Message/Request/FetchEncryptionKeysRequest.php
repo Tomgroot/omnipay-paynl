@@ -19,7 +19,8 @@ class FetchEncryptionKeysRequest extends AbstractPaynlRequest
     /**
      * @var string
      */
-    protected $baseUrl = 'https://payment.pay.nl/v1/Payment/';
+    protected $baseUrl = 'https://payment.pay.nl';
+    protected $version = '/v1/Payment/';
 
     /**
      * @return array
@@ -31,7 +32,7 @@ class FetchEncryptionKeysRequest extends AbstractPaynlRequest
 
     /**
      * @param array $data
-     * @return \Omnipay\Common\Message\ResponseInterface|PurchaseResponse
+     * @return \Omnipay\Paynl\Message\Response\FetchEncryptionKeysResponse
      */
     public function sendData($data)
     {

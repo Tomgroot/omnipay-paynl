@@ -36,23 +36,28 @@ class AuthorizeRequest extends AbstractPaynlRequest
 
         $this->validate('tokenCode', 'apiToken', 'serviceId', 'amount', 'clientIp', 'returnUrl');
 
-        $data['transaction'] = [
-            'type'          => !empty($this->getType()) ? $this->getType() : 'ecom',
-            'serviceId'     => $this->getServiceId(),
-            'amount'        => $this->getAmountInteger(),
-            'ipAddress'     => $this->getClientIp(),
-            'finishUrl'     => $this->getReturnUrl(),
-            'currency'      => !empty($this->getCurrency()) ? $this->getCurrency() : 'EUR',
-            'description'   => $this->getDescription() ?: null,
-            'expireDate'    => !empty($this->getExpireDate()) ? $this->getExpireDate() : null,
-            'exchangeUrl'   => !empty($this->getNotifyUrl()) ? $this->getNotifyUrl() : null,
-            'reference'     => !empty($this->getCustomerReference()) ? $this->getCustomerReference() : null //Reference of customer?
-        ];
+        if (!empty($this->getEntranceCode())) {
+            $data['transaction'] = [
+                'orderId'       => $this->getOrderId(),
+                'entranceCode'  => $this->getEntranceCode()
+            ];
+        } else {
+            $data['transaction'] = [
+                'type'          => !empty($this->getType()) ? $this->getType() : 'ecom',
+                'serviceId'     => $this->getServiceId(),
+                'amount'        => $this->getAmountInteger(),
+                'ipAddress'     => $this->getClientIp(),
+                'finishUrl'     => $this->getReturnUrl(),
+                'currency'      => !empty($this->getCurrency()) ? $this->getCurrency() : 'EUR',
+                'description'   => $this->getDescription() ?: "",
+                'expireDate'    => !empty($this->getExpireDate()) ? $this->getExpireDate() : "",
+                'exchangeUrl'   => !empty($this->getNotifyUrl()) ? $this->getNotifyUrl() : "",
+                'reference'     => !empty($this->getCustomerReference()) ? $this->getCustomerReference() : "" //Reference of customer?
+            ];
+        }
 
-        $data['options'] = [];
         $data['testMode'] = $this->getTestMode() ? 1 : 0;
 
-        $data['customer'] = [];
 
         if ($card = $this->getCard()) {
             $billingAddressParts = $this->getAddressParts($card->getBillingAddress1() . ' ' . $card->getBillingAddress2());
@@ -112,12 +117,30 @@ class AuthorizeRequest extends AbstractPaynlRequest
                 'method'    => 'cse',
                 'cse'       => $this->getCse()
             ];
+            if (!empty($this->getPayTdsTransactionId())) {
+                $data['payment']['auth'] = [
+                    'payTdsTransactionId'   => $this->getPayTdsTransactionId(),
+                    'payTdsAcquirerId'      => !empty($this->getPayTdsAcquirerId()) ? $this->getPayTdsAcquirerId() : ""
+                ];
+                $data['payment']['browser'] = [
+                    "javaEnabled"       => $this->getJavaEnabled(),
+                    "javascriptEnabled" => $this->getJavaScriptEnabled(),
+                    "language"          => $this->getLanguage(),
+                    "colorDepth"        => $this->getColorDepth(),
+                    "screenHeight"      => $this->getScreenHeight(),
+                    "screenWidth"       => $this->getScreenWidth(),
+                    "tz"                => $this->getTz()
+                ];
+            }
         }
 
-        $data['order'] = [
-            'deliveryDate'  => !empty($this->getDeliveryDate()) ? $this->getDeliveryDate() : null,
-            'invoiceDate'   => !empty($this->getInvoiceDate()) ? $this->getInvoiceDate() : null
-        ];
+        if (!empty($this->getDeliveryDate())) {
+            $data['order']['deliveryDate'] = $this->getDeliveryDate();
+        }
+
+        if (!empty($this->getInvoiceDate())) {
+            $data['order']['invoiceDate'] = $this->getInvoiceDate();
+        }
 
         if ($items = $this->getItems()) {
             $data['order'] = [
@@ -203,6 +226,40 @@ class AuthorizeRequest extends AbstractPaynlRequest
     public function getType()
     {
         return $this->getParameter('type');
+    }
+
+    /**
+     * @param $value string
+     * @return AuthorizeRequest
+     */
+    public function setOrderId($value)
+    {
+        return $this->setParameter('orderId', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderId()
+    {
+        return $this->getParameter('orderId');
+    }
+
+    /**
+     * @param $value string
+     * @return AuthorizeRequest
+     */
+    public function setEntranceCode($value)
+    {
+        return $this->setParameter('entranceCode', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEntranceCode()
+    {
+        return $this->getParameter('entranceCode');
     }
 
     /**
@@ -302,5 +359,149 @@ class AuthorizeRequest extends AbstractPaynlRequest
     public function getDeliveryDate()
     {
         return $this->getParameter('deliveryDate');
+    }
+
+    /**
+     * @return AuthenticateRequest
+     */
+    public function setPayTdsAcquirerId($value)
+    {
+        return $this->setParameter('payTdsAcquirerId', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayTdsAcquirerId()
+    {
+        return $this->getParameter('payTdsAcquirerId');
+    }
+
+    /**
+     * @return AuthenticateRequest
+     */
+    public function setPayTdsTransactionId($value)
+    {
+        return $this->setParameter('payTdsTransactionId', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPayTdsTransactionId()
+    {
+        return $this->getParameter('payTdsTransactionId');
+    }
+
+    /**
+     * @return AuthenticateRequest
+     */
+    public function setJavaEnabled($value)
+    {
+        return $this->setParameter('javaEnabled', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJavaEnabled()
+    {
+        return $this->getParameter('javaEnabled');
+    }
+
+    /**
+     * @return AuthenticateRequest
+     */
+    public function setJavaScriptEnabled($value)
+    {
+        return $this->setParameter('javaScriptEnabled', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJavaScriptEnabled()
+    {
+        return $this->getParameter('javaScriptEnabled');
+    }
+
+    /**
+     * @return AuthenticateRequest
+     */
+    public function setLanguage($value)
+    {
+        return $this->setParameter('language', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLanguage()
+    {
+        return $this->getParameter('language');
+    }
+
+    /**
+     * @return AuthenticateRequest
+     */
+    public function setColorDepth($value)
+    {
+        return $this->setParameter('colorDepth', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getColorDepth()
+    {
+        return $this->getParameter('colorDepth');
+    }
+
+    /**
+     * @return AuthenticateRequest
+     */
+    public function setScreenHeight($value)
+    {
+        return $this->setParameter('screenHeight', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getScreenHeight()
+    {
+        return $this->getParameter('screenHeight');
+    }
+
+    /**
+     * @return AuthenticateRequest
+     */
+    public function setScreenWidth($value)
+    {
+        return $this->setParameter('screenWidth', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getScreenWidth()
+    {
+        return $this->getParameter('screenWidth');
+    }
+
+    /**
+     * @return AuthenticateRequest
+     */
+    public function setTz($value)
+    {
+        return $this->setParameter('tz', $value);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTz()
+    {
+        return $this->getParameter('tz');
     }
 }

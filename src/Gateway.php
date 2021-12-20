@@ -3,9 +3,12 @@
 namespace Omnipay\Paynl;
 
 use Omnipay\Common\AbstractGateway;
+use Omnipay\Paynl\Message\Request\AuthenticateRequest;
 use Omnipay\Paynl\Message\Request\AuthorizeRequest;
 use Omnipay\Paynl\Message\Request\CaptureRequest;
 use Omnipay\Paynl\Message\Request\CompletePurchaseRequest;
+use Omnipay\Paynl\Message\Request\FetchAuthenticationStatusRequest;
+use Omnipay\Paynl\Message\Request\FetchEncryptionKeysRequest;
 use Omnipay\Paynl\Message\Request\FetchIssuersRequest;
 use Omnipay\Paynl\Message\Request\FetchPaymentMethodsRequest;
 use Omnipay\Paynl\Message\Request\FetchTransactionRequest;
@@ -149,12 +152,30 @@ class Gateway extends AbstractGateway
 
     /**
      * @param array $options
+     * @return \Omnipay\Common\Message\AbstractRequest|FetchTransactionRequest
+     */
+    public function fetchAuthenticationStatus(array $options = [])
+    {
+        return $this->createRequest(FetchAuthenticationStatusRequest::class, $options);
+    }
+
+    /**
+     * @param array $options
      * @return \Omnipay\Common\Message\AbstractRequest|FetchPaymentMethodsRequest
      */
     public function fetchPaymentMethods(array $options = [])
     {
         $this->setCore(self::CORE1);
         return $this->createRequest(FetchPaymentMethodsRequest::class, $options);
+    }
+
+    /**
+     * @param array $options
+     * @return \Omnipay\Common\Message\AbstractRequest
+     */
+    public function fetchEncryptionKeys(array $options = [])
+    {
+        return $this->createRequest(FetchEncryptionKeysRequest::class, $options);
     }
 
     /**
@@ -183,6 +204,15 @@ class Gateway extends AbstractGateway
     public function authorize(array $options = array())
     {
         return $this->createRequest(AuthorizeRequest::class, $options);
+    }
+
+    /**
+     * @param array $options
+     * @return \Omnipay\Common\Message\AbstractRequest|AuthenticateRequest
+     */
+    public function authenticate(array $options = array())
+    {
+        return $this->createRequest(AuthenticateRequest::class, $options);
     }
 
     /**

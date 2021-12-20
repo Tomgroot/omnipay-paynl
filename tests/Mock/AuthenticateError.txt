@@ -1,0 +1,59 @@
+HTTP/1.1 200 OK
+Date: Fri, 03 Dec 2021 16:20:11 GMT;
+Server: Apache;
+Last-Modified: Tue, 09 Oct 2018 16:21:13 GMT;
+Cache-Control: post-check=0, pre-check=0;
+Pragma: no-cache;
+X-Frame-Options: SAMEORIGIN;
+X-XSS-Protection: 1; mode=block;
+X-Content-Type-Options: nosniff;
+Connection: close;
+Content-Type: application/json;
+
+{
+    "request": {
+        "result": "0",
+        "errorId": "PAY-2901",
+        "errorTag": "authenticationFailed",
+        "errorMessage": "We were unable to verify your payment. Please try again."
+    },
+    "transaction": {
+        "transactionId": "xxxxxxx",
+        "orderId": "xxxxxxx",
+        "paymentProfileId": "xxx",
+        "state": "20",
+        "stateName": "PENDING",
+        "amount": {
+            "value": "1",
+            "currency": "EUR"
+        },
+        "created": "1640039257",
+        "identifierName": "TT Test",
+        "identifierPublic": "******",
+        "identifierHash": "xxxxxxxxx",
+        "startIpAddress": "127.0.0.1",
+        "completedIpAddress": "127.0.0.1",
+        "orderNumber": "12345",
+        "amountOriginal": {
+            "value": "1",
+            "currency": "EUR"
+        },
+        "amountPaidOriginal": {
+            "value": "0",
+            "currency": "EUR"
+        },
+        "amountPaid": {
+            "value": "0",
+            "currency": "EUR"
+        },
+        "amountRefundOriginal": {
+            "value": "0",
+            "currency": "EUR"
+        },
+        "amountRefund": {
+            "value": "0",
+            "currency": "EUR"
+        },
+        "entranceCode": "xxxxxxxxx"
+    }
+}

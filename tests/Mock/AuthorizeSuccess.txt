@@ -9,7 +9,6 @@ X-XSS-Protection: 1; mode=block;
 X-Content-Type-Options: nosniff;
 Connection: close;
 Content-Type: application/json;
-Content-Length: 1384;
 
 {
     "request": {

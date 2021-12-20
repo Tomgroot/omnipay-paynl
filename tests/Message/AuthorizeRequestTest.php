@@ -233,7 +233,6 @@ class AuthorizeRequestTest extends TestCase
 
         $data = $this->request->getData();
 
-        $this->assertArrayHasKey('customer', $data);
         $this->assertArrayHasKey('transaction', $data); //Not sure if customer reference needs to be in transaction
         $this->assertArrayHasKey('reference', $data['transaction']);
         $this->assertEquals($customerReference, $data['transaction']['reference']);

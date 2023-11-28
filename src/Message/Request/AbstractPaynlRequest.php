@@ -14,7 +14,8 @@ abstract class AbstractPaynlRequest extends AbstractRequest
     /**
      * @var string
      */
-    private $baseUrl = 'https://rest-api.pay.nl/v12/transaction/';
+    private $baseUrl = 'https://rest-api.pay.nl';
+    private $version = '/v18/transaction/';
 
     /**
      * @param string $endpoint
@@ -23,7 +24,7 @@ abstract class AbstractPaynlRequest extends AbstractRequest
      */
     public function sendRequest($endpoint, array $data = null)
     {
-        $uri = $this->baseUrl . $endpoint . '/json';
+        $uri = $this->getCore() . $this->version . $endpoint . '/json';
         $method = 'GET';
         $headers = $this->getAuthHeader();
         $body = null;
@@ -102,5 +103,22 @@ abstract class AbstractPaynlRequest extends AbstractRequest
     public function getServiceId()
     {
         return $this->getParameter('serviceId');
+    }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setCore($value)
+    {  
+        return $this->setParameter('core', $value);
+    }
+
+    /**
+     * @return string
+     */
+    public function getCore()
+    {
+        return (!empty($this->getParameter('core'))) ? $this->getParameter('core') : $this->baseUrl;
     }
 }

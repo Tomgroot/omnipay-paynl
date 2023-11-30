@@ -132,9 +132,9 @@ class Gateway extends AbstractGateway
      */
     public function fetchTransaction(array $options = [])
     {
-        if(!empty($options['transactionReference'])){
+        if (!empty($options['transactionReference'])) {
             $transactionId = $options['transactionReference'];
-            $prefix = (string)substr($transactionId, 0, 2);
+            $prefix = (string) substr($transactionId, 0, 2);
             if ($prefix == '51') {
                 $this->setCore(self::CORE2);
             } elseif ($prefix == '52') {

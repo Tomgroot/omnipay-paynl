@@ -281,7 +281,7 @@ $gateway->setTokenCode('AT-####-####');
 $gateway->setServiceId('SL-####-####');
 
 # Setting Failover gateway (for available cores, call $gateway->getCores())
-$gateway->setCore($gateway->CORE2);
+$gateway->setCore($gateway::CORE2);
 ```
 # Support
 https://www.pay.nl

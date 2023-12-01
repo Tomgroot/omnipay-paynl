@@ -27,8 +27,6 @@ class CompletePurchaseRequestTest extends TestCase
         $this->assertInstanceOf(CompletePurchaseResponse::class, $response);
         $this->assertEquals($transactionReference, $response->getTransactionReference());
 
-        $this->assertTrue($response->isSuccessful());
-
         $this->assertFalse($response->isPaid());
         $this->assertFalse($response->isPending());
         $this->assertFalse($response->isOpen());

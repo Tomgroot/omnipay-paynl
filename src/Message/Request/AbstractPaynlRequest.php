@@ -119,6 +119,7 @@ abstract class AbstractPaynlRequest extends AbstractRequest
      */
     public function getCore()
     {
-        return (!empty($this->getParameter('core'))) ? $this->getParameter('core') : $this->baseUrl;
+        $core = $this->getParameter('core');
+        return empty($core) ? $this->baseUrl : $core;
     }
 }

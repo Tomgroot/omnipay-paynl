@@ -14,6 +14,12 @@ use Omnipay\Paynl\Message\Request\VoidRequest;
 
 class Gateway extends AbstractGateway
 {
+    const CORE1 = 'https://rest-api.pay.nl';
+    const CORE1_TEXT = 'Pay.nl (Default)';
+    const CORE2 = 'https://rest.achterelkebetaling.nl';
+    const CORE2_TEXT = 'Achterelkebetaling.nl';
+    const CORE3 = 'https://rest.payments.nl';
+    const CORE3_TEXT = 'Payments.nl';
 
     /**
      * @inheritdoc
@@ -31,7 +37,38 @@ class Gateway extends AbstractGateway
         return [
             'tokenCode' => null,
             'apiToken' => null,
-            'serviceId' => null
+            'serviceId' => null,
+            'core' => null
+        ];
+    }
+
+    /**
+     * @param string $value
+     * @return $this
+     */
+    public function setCore($value)
+    {
+        $this->setParameter('core', $value);
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCore()
+    {
+        return $this->getParameter('core');
+    }
+
+     /**
+     * @return string[]
+     */
+    public function getCores()
+    {
+        return [
+            self::CORE1 => self::CORE1_TEXT,
+            self::CORE2 => self::CORE2_TEXT,
+            self::CORE3 => self::CORE3_TEXT,
         ];
     }
 
@@ -95,6 +132,17 @@ class Gateway extends AbstractGateway
      */
     public function fetchTransaction(array $options = [])
     {
+        if (!empty($options['transactionReference'])) {
+            $transactionId = $options['transactionReference'];
+            $prefix = (string) substr($transactionId, 0, 2);
+            if ($prefix == '51') {
+                $this->setCore(self::CORE2);
+            } elseif ($prefix == '52') {
+                $this->setCore(self::CORE3);
+            } else {
+                $this->setCore(self::CORE1);
+            }
+        }
         return $this->createRequest(FetchTransactionRequest::class, $options);
     }
 
@@ -104,6 +152,7 @@ class Gateway extends AbstractGateway
      */
     public function fetchPaymentMethods(array $options = [])
     {
+        $this->setCore(self::CORE1);
         return $this->createRequest(FetchPaymentMethodsRequest::class, $options);
     }
 
@@ -113,6 +162,7 @@ class Gateway extends AbstractGateway
      */
     public function fetchIssuers(array $options = [])
     {
+        $this->setCore(self::CORE1);
         return $this->createRequest(FetchIssuersRequest::class, $options);
     }
 
